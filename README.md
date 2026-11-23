@@ -1,8 +1,8 @@
 # 🌀 Zazen TUI
 
-![Zazen TUI Screenshot](screenshot.png)
-
-![Zazen TUI Command Palette](screenshot2.png)
+<p align="center">
+  <img src="screenshot.gif" alt="Zazen Terminal Suite Demo" width="85%" />
+</p>
 
 A minimalist terminal user interface (TUI) for Zazen & Kinhin meditation, built with [Textual](https://textualize.io) and the **Dracula** theme.
 
