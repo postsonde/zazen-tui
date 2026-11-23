@@ -180,6 +180,11 @@ class ZenApp(App):
         width: 62;
         height: 24;
         align: center middle;
+        background: #282a36;
+    }
+
+    Static {
+        background: #282a36;
     }
 
     #app-title {
@@ -369,32 +374,46 @@ class ZenApp(App):
             self._update_headers()
             return
 
-        if self.phase == "ZAZEN":
+        if self.phase == "ZAZEN" and self.kinhin_mins > 0:
             self.trigger_bell()
-            if self.kinhin_mins > 0:
-                self.phase = "KINHIN"
-                self.current_stage_total = self.kinhin_mins * 60
-                self.remaining = self.current_stage_total
-                self._update_headers()
-                return
+            self.phase = "KINHIN"
+            self.current_stage_total = self.kinhin_mins * 60
+            self.remaining = self.current_stage_total
+            self._update_headers()
+            return
 
-        elif self.phase == "KINHIN":
+        if self.phase == "KINHIN" and self.second_zazen:
             self.trigger_bell()
-            if self.second_zazen:
-                self.phase = "ZAZEN II"
-                self.current_stage_total = self.zazen_mins * 60
-                self.remaining = self.current_stage_total
-                self._update_headers()
-                return
+            self.phase = "ZAZEN II"
+            self.current_stage_total = self.zazen_mins * 60
+            self.remaining = self.current_stage_total
+            self._update_headers()
+            return
 
-        elif self.phase == "ZAZEN II":
-            self.trigger_bell()
-
+        # Ende der gesamten Sitzung -> 3x Glocke
+        self.trigger_triple_bell()
         self.is_running = False
         self.phase = "FERTIG"
         self.action_next_koan()
         self._set_ui_dimmed(False)
         self._update_headers()
+
+    def trigger_bell(self) -> None:
+        if self.sound_mode == 0:
+            self._play_wav_async(self.wav_bowl)
+        elif self.sound_mode == 1:
+            self._play_wav_async(self.wav_bell)
+        elif self.sound_mode == 2:
+            self.bell()
+
+        self.screen.add_class("visual-bell")
+        self.set_timer(0.7, lambda: self.screen.remove_class("visual-bell"))
+
+    def trigger_triple_bell(self) -> None:
+        """Lässt Klangschale und Visual Bell zum Abschluss 3-mal ertönen."""
+        self.trigger_bell()
+        self.set_timer(1.8, self.trigger_bell)
+        self.set_timer(3.6, self.trigger_bell)
 
     def _play_wav_async(self, wav_bytes: bytes) -> None:
         def worker():
