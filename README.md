@@ -46,4 +46,4 @@ zazen
 
 ## 📄 License
 
-GNU General Public License v3.0 (GNU GPLv3) 🄯 All Lights returned [postsonde](https://github.com/postsonde)
+**GNU General Public License v3.0** (GNU GPLv3) **🄯 All Lights returned** [postsonde](https://github.com/postsonde)
