@@ -16,7 +16,7 @@ A minimalist terminal user interface (TUI) for Zazen & Kinhin meditation, built 
 ## 📦 Installation
 
 ```bash
-pipx install git+https://github.com/postsonde/zazen-tui.git
+pipx install zazen-tui
 ```
 
 ## 🚀 Usage
@@ -46,4 +46,4 @@ zazen
 
 ## 📄 License
 
-GNU General Public License v3.0 (GNU GPLv3) 🄯 [postsonde](https://github.com)
+GNU General Public License v3.0 (GNU GPLv3) 🄯 All Lights returned [postsonde](https://github.com/postsonde)
